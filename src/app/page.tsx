@@ -13,7 +13,9 @@ export default function Home() {
     <div className="flex flex-col gap-2 p-4">
       <Button onClick={()=> createProjects({
         name : "New Project"
-      })}>
+      })}
+      className="w-[200px] h-10"
+      >
         Add New Project
       </Button>
       {projects?.map((projects) => (

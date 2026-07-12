@@ -15,9 +15,8 @@ export default function Providers({ children }: { children: ReactNode }) {
   return (
     <ClerkProvider>
         <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
-            <Authenticated>
+
                 {children}
-            </Authenticated>
         </ConvexProviderWithClerk>
     </ClerkProvider>
   )
