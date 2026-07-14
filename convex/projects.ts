@@ -34,7 +34,7 @@ export const getPartial = query({
 
 export const get = query({
     args:{},
-    handler: async (ctx, arg) => {
+    handler: async (ctx, args) => {
         const identity = await verifyAuth(ctx);
 
         const query = await ctx.db.query("projects")
@@ -45,6 +45,54 @@ export const get = query({
         return query;
     }
 })
+
+export const getById = query({
+    args:{ 
+        Id: v.id("projects")
+    },
+
+    handler: async (ctx, args) => {
+        const identity = await verifyAuth(ctx);
+
+        const project = await ctx.db.get("projects" , args.Id);
+        if(!project){
+            throw new Error("Project not found");
+        }
+
+        if(project.ownerId !== identity.subject){
+            throw new Error ("Unauthorized Access");
+        }
+
+        return project;
+    }
+})
+
+export const rename = mutation({
+    args:{ 
+        Id: v.id("projects"),
+        name: v.string()
+    },
+
+    handler: async (ctx, args) => {
+        const identity = await verifyAuth(ctx);
+
+        const project = await ctx.db.get("projects" , args.Id);
+        if(!project){
+            throw new Error("Project not found");
+        }
+
+        if(project.ownerId !== identity.subject){
+            throw new Error ("Unauthorized Access");
+        }
+
+        await ctx.db.patch("projects", args.Id, {
+            name: args.name,
+            updatedAt: Date.now()
+        })
+
+    }
+})
+
 
 export const deleteProject = mutation({
     args: {

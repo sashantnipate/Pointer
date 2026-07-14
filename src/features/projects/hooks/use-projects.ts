@@ -6,6 +6,9 @@ export const useProjects = () => {
     return useQuery(api.projects.get);
 };
 
+export const useProject = (projectId:Id<"projects">) => {
+    return useQuery(api.projects.getById, {Id: projectId});
+}
 
 export const useProjectsPartial = (limit: number) => {
     return useQuery(api.projects.getPartial, {limit, });
@@ -33,6 +36,10 @@ export const useCreateProject = () => {
             }
         }
     );
+}
+
+export const useRenameProject = () => {
+    return useMutation(api.projects.rename);
 }
 
 export const useDeleteProject = () => {
