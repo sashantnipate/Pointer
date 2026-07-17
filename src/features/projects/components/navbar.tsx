@@ -1,4 +1,4 @@
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 import { Id } from "../../../../convex/_generated/dataModel";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -12,7 +12,6 @@ import { formatDistanceToNow } from "date-fns";
 export const Navbar = (
     {
         projectId
-
     }:
     {
         projectId: Id<"projects">;
@@ -49,14 +48,10 @@ export const Navbar = (
             <div className="flex items-center gap-x-2">
                 <Breadcrumb>
                     <BreadcrumbList>
-                    <BreadcrumbItem>
-                        <BreadcrumbLink className="flex item-center gap-1.5" >
-                            <Button
-                                variant="outline"
-                                className="w-fit! p-1.5! h-7! border-none"
-                            >
+                        <BreadcrumbItem>
+                            <div className="flex items-center gap-1.5 transition-colors text-muted-foreground hover:text-foreground text-sm font-medium">
                                 <Link 
-                                    href= '/'
+                                    href='/'
                                     className="flex gap-1.5 justify-between items-center"
                                 >
                                     <GamepadDirectional className="size-5"/>
@@ -64,34 +59,30 @@ export const Navbar = (
                                         Pointer
                                     </span>
                                 </Link>
-                            </Button>
-
-                        </BreadcrumbLink>
-                    </BreadcrumbItem>
-                    <BreadcrumbSeparator/>
-                    <BreadcrumbItem>
-                        {isRenaming ? (
-                            <input
-                                autoFocus
-                                type= "text"
-                                value={name}
-                                onChange={(e)=> setName(e.target.value)}
-                                onFocus={(e) => e.currentTarget.select()}
-                                onBlur= {handleSubmit}
-                                onKeyDown={handleKeyDown}
-
-                                className="text-sm bg-transparent text-foreground outline-none focus:ring-1 focus:ring-inset focus:ring-ring font-medium max-w-40 truncate "
-                            />
-                        ):(
-
-                        <BreadcrumbPage 
-                            className="text-sm cursor-pointer hover:text-primary font-medium max-w-40 truncate"
-                            onClick={handleStartRename}
-                        >
-                            {getProject?.name ?? "Loading..."}
-                        </BreadcrumbPage>
-                        )}
-                    </BreadcrumbItem>
+                            </div>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator/>
+                        <BreadcrumbItem>
+                            {isRenaming ? (
+                                <input
+                                    autoFocus
+                                    type= "text"
+                                    value={name}
+                                    onChange={(e)=> setName(e.target.value)}
+                                    onFocus={(e) => e.currentTarget.select()}
+                                    onBlur= {handleSubmit}
+                                    onKeyDown={handleKeyDown}
+                                    className="text-sm bg-transparent text-foreground outline-none focus:ring-1 focus:ring-inset focus:ring-ring font-medium max-w-40 truncate "
+                                />
+                            ) : (
+                                <BreadcrumbPage 
+                                    className="text-sm cursor-pointer hover:text-primary font-medium max-w-40 truncate"
+                                    onClick={handleStartRename}
+                                >
+                                    {getProject?.name ?? "Loading..."}
+                                </BreadcrumbPage>
+                            )}
+                        </BreadcrumbItem>
                     </BreadcrumbList>
                 </Breadcrumb>
                 {getProject?.importStatus == "importing" ? (
@@ -103,7 +94,7 @@ export const Navbar = (
                             </TooltipContent>
                         </TooltipTrigger>
                     </Tooltip>
-                ): (
+                ) : (
                     getProject?.updatedAt && (
                         <Tooltip>
                             <TooltipTrigger >
@@ -118,13 +109,11 @@ export const Navbar = (
                             </TooltipTrigger>
                         </Tooltip>
                     )
-                )
-            }
+                )}
             </div>
             <div>
                 <UserButton />
             </div>
-
         </nav>
     )
-} 
+}

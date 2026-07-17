@@ -54,6 +54,9 @@ export const getById = query({
     handler: async (ctx, args) => {
         const identity = await verifyAuth(ctx);
 
+        if (!identity) {
+            return null; 
+        }
         const project = await ctx.db.get("projects" , args.Id);
         if(!project){
             throw new Error("Project not found");

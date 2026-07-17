@@ -8,6 +8,7 @@
  * @module
  */
 
+import type * as files from "../files.js";
 import type * as projects from "../projects.js";
 import type * as verifyAuth from "../verifyAuth.js";
 
@@ -18,6 +19,7 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  files: typeof files;
   projects: typeof projects;
   verifyAuth: typeof verifyAuth;
 }>;
