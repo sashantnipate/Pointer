@@ -7,6 +7,7 @@ import { customeTheme } from "../extensions/theme"
 import { minimap } from "../extensions/minimap"
 import { indentWithTab } from "@codemirror/commands"
 import { indentationMarkers } from "@replit/codemirror-indentation-markers"
+import { suggestion } from "../extensions/suggestions"
 
 const languageConf = new Compartment()
 
@@ -57,6 +58,7 @@ export const CodeEditor = ({ fileName, initialValue=" ", onChange }: CodeEditorP
                 customeTheme,
                 basicSetup,
                 languageConf.of([]),
+                suggestion(fileName),
                 keymap.of([indentWithTab]),
                 minimap(),
                 indentationMarkers(),
